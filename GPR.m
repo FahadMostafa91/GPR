@@ -42,3 +42,13 @@ MSE2 = loss(mdl2,dataTest)
 Pred = predict(mdl,dataTest);
 %Plot the results.
 evaluateFit(dataTest.y,Pred,"GPR")
+
+%Notice that the predictions are not particularly accurate. 
+%The default kernel function for fitrgp uses a single length scale for all predictors, but these predictors have different scales.
+
+%You can choose a kernel function which uses a separate length scale for each predictor.
+%Such kernel functions have names which start with "ard" (automatic relevance determination).
+
+
+gpMdl = fitrgp(dataTrain,"y","KernelFunction", "ardsquaredexponential")
+
