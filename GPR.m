@@ -28,3 +28,17 @@ hold on
 plot(dataTest.x,yInt,"k--")
 hold off
 
+%You can see that the prediction intervals are large due to the presence of outliers. Try fitting a new model which ignores the outliers.
+idxOut = isoutlier(dataTrain.y);
+mdl2 = fitrgp(dataTrain(~idxOut,:),"y");
+%Find predictions and intervals based on the new model, and add them to your plot.
+
+%Try calculating the mean squared error for each model. How do they compare?
+MSE = loss(mdl,dataTest)
+MSE2 = loss(mdl2,dataTest)
+
+
+
+Pred = predict(mdl,dataTest);
+%Plot the results.
+evaluateFit(dataTest.y,Pred,"GPR")
